@@ -1,0 +1,5 @@
+﻿<linker>
+  <assembly fullname="NicolesBlazerResumeApp">
+    <type fullname="*" required="true" />
+  </assembly>
+</linker>
