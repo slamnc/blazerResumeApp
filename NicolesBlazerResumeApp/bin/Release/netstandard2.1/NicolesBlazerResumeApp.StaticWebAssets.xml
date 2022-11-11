@@ -1,4 +1,0 @@
-﻿<StaticWebAssets Version="1.0">
-  <ContentRoot BasePath="/" Path="C:\2020 Apps\NicolesBlazerResumeApp\NicolesBlazerResumeApp\bin\Release\netstandard2.1\wwwroot\" />
-  <ContentRoot BasePath="_content/ChartJs.Blazor" Path="C:\Users\slamajama\.nuget\packages\chartjs.blazor\1.1.0\build\..\staticwebassets\" />
-</StaticWebAssets>
