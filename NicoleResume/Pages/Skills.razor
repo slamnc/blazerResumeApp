@@ -1,0 +1,109 @@
+﻿@page "/skills"
+@inject HttpClient Http
+@using ChartJs.Blazor;
+@using ChartJs.Blazor.ChartJS.BarChart
+@using ChartJs.Blazor.ChartJS.Common.Axes
+@using ChartJs.Blazor.ChartJS.Common.Axes.Ticks
+@using ChartJs.Blazor.ChartJS.Common.Enums
+@using ChartJs.Blazor.ChartJS.Common.Properties
+@using ChartJs.Blazor.ChartJS.Common.Wrappers
+@using ChartJs.Blazor.Charts
+@using ChartJs.Blazor.Util
+
+<div id="pagewrapper">
+
+    <h1>My Skills</h1>
+    <div class="dividerline"></div>
+    <p>Below shows a chart of my stronger skills and how I would rate myself.</p>
+
+     <ChartJsBarChart @ref="_barChart" 
+         Config="@_barChartConfig" 
+         Width="600" 
+         Height="250"
+     />
+
+    @code
+{
+        private BarConfig? _barChartConfig;
+        private ChartJsBarChart? _barChart;
+        private BarDataset<DoubleWrapper>? _barDataSet;
+
+        protected override Task OnInitializedAsync()
+        {
+
+            // Note the constructor argument
+            _barChartConfig = new BarConfig(ChartType.HorizontalBar)
+            {
+                Options = new BarOptions
+                {
+                    Title = new OptionsTitle
+                    {
+                        Display = false,
+                        Text = "Skills Bar Chart"
+                    },
+                    Responsive = true,
+                    Scales = new BarScales
+                    {
+                        XAxes = new List<CartesianAxis>
+                    {
+                        new LinearCartesianAxis
+                        {
+                            Ticks = new LinearCartesianTicks
+                            {
+                                AutoSkip = false,
+                                Min = 0 // Otherwise the lowest value in the dataset won't be visible
+                            }
+                        }
+                    }
+                    }
+                }
+            };
+
+            _barChartConfig.Data.Labels.AddRange(GetSkillsList().Select(x => x.SkillName).ToArray());
+
+            ////Note the constructor argument
+            _barDataSet = new BarDataset<DoubleWrapper>(ChartType.HorizontalBar)
+            {
+                Label = "My Skills",
+                BackgroundColor = new[] { ColorUtil.RandomColorString(), ColorUtil.RandomColorString(), ColorUtil.RandomColorString(), ColorUtil.RandomColorString(), ColorUtil.RandomColorString(), ColorUtil.RandomColorString(), ColorUtil.RandomColorString(), ColorUtil.RandomColorString() },
+                BorderColor = ColorUtil.RandomColorString(),
+                BorderWidth = 1
+            };
+
+            _barDataSet.AddRange(GetSkillsList().Select(z => z.Rating).ToArray().Wrap());
+            _barChartConfig.Data.Datasets.Add(_barDataSet);
+
+            return Task.CompletedTask;
+        }
+
+
+        public class SkillsList
+        {
+            public string? SkillName { get; set; }
+
+            public double Rating { get; set; }
+        }
+
+        private List<SkillsList> GetSkillsList()
+        {
+
+            List<SkillsList> skills = new List<SkillsList>()
+            {
+                new SkillsList{ SkillName="C#", Rating=7},
+                new SkillsList{ SkillName="SQL", Rating=5},
+                new SkillsList{ SkillName="Angular", Rating=7},
+                new SkillsList{ SkillName="AngularJS", Rating=6},
+                new SkillsList{ SkillName="Blazor", Rating=2},
+                new SkillsList{ SkillName="Communication", Rating=9},
+                new SkillsList{ SkillName="JavaScript", Rating=6},
+                new SkillsList{ SkillName="VB", Rating=9},
+                new SkillsList{ SkillName="Problem Solving", Rating=8},
+                new SkillsList{ SkillName="Mentoring", Rating=7},
+                new SkillsList{ SkillName="Business Knowledge", Rating=8}
+            };
+
+            return skills;
+        }
+    
+    }
+</div>

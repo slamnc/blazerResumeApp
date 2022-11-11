@@ -1,0 +1,52 @@
+﻿@using System.ComponentModel.DataAnnotations;
+@page "/contact"
+
+
+<div id="pagewrapper">
+    <h1>Contact Me</h1>
+    <div class="dividerline"></div>
+
+    <EditForm Model="@_exampleModel" OnValidSubmit="HandleValidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="row">
+            <label class="col-sm-2">First Name: </label>
+            <InputText class="col-sm-3 form-control" @bind-Value="_exampleModel.FirstName" /> <br />
+        </div>
+        <div class="row">
+            <label class="col-sm-2">Password</label>
+            <InputText class="col-sm-3 form-control" @bind-Value="_exampleModel.LastName" /><br />
+        </div>
+        <div class="row">
+            <label class="col-sm-2">Email</label>
+            <InputText class="col-sm-3 form-control" @bind-Value="_exampleModel.Email" /><br />
+        </div>
+        <button type="submit" @onclick="HandleValidSubmit">Submit</button>
+    </EditForm>
+
+</div>
+
+@code{
+
+
+
+    private ExampleModel _exampleModel = new ExampleModel();
+
+    private void HandleValidSubmit()
+    {
+        Console.WriteLine("Sent Email");
+    }
+
+    public class ExampleModel
+    {
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public string? Email { get; set; }
+
+    }
+
+
+    
+
+}
